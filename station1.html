@@ -1,0 +1,167 @@
+<!-- Файл 1: station1.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Станция 1</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #eef2f7;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .container {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 30px;
+            max-width: 550px;
+            width: 100%;
+            box-sizing: border-box;
+            border-top: 8px solid #0056b3;
+        }
+        .header {
+            color: #0056b3;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+        h2 {
+            margin: 0 0 20px 0;
+            color: #1a202c;
+            font-size: 24px;
+        }
+        .question {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4a5568;
+            margin-bottom: 25px;
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn {
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px 20px;
+            font-size: 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #2d3748;
+            font-weight: 500;
+        }
+        .btn:hover:not(:disabled) {
+            border-color: #0056b3;
+            background: #f0f7ff;
+        }
+        .btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .btn.correct {
+            background: #c6f6d5 !important;
+            border-color: #38a169 !important;
+            color: #22543d !important;
+        }
+        .btn.wrong {
+            background: #fed7d7 !important;
+            border-color: #e53e3e !important;
+            color: #742a2a !important;
+        }
+        .alert {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            animation: slideUp 0.4s ease;
+        }
+        .alert-success {
+            background: #edfbd8;
+            border: 1px solid #c2e994;
+            color: #2e5114;
+        }
+        .alert-danger {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            color: #9b2c2c;
+        }
+        .reload-btn {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="container">
+        <div class="header">Станция 1</div>
+        <h2>Рождение города и легенда о бересте</h2>
+        <div class="question">
+            Первое летописное упоминание о нашем городе относится к 1019 году. По легенде, богатый купец завяз в болоте, но смог выбраться, вымостив дорогу корой местного дерева. В честь этого дерева и назвали древнее поселение — Берестье. Как называется эта кора, давшая имя городу?
+        </div>
+        
+        <div class="options">
+            <button class="btn" onclick="check(this, false)">Дубьё</button>
+            <button class="btn" onclick="check(this, true)">Берёста</button>
+            <button class="btn" onclick="check(this, false)">Заболонь</button>
+            <button class="btn" onclick="check(this, false)">Луковица</button>
+        </div>
+
+        <div class="alert alert-success" id="win">
+            <strong>Правильно!</strong>
+        </div>
+
+        <div class="alert alert-danger" id="lose">
+            <strong>Неправильно!</strong>
+            <p>Чтобы попробовать снова, перезагрузите страницу.</p>
+            <button class="reload-btn" onclick="location.reload();">Перезапустить</button>
+        </div>
+    </div>
+
+    <script>
+        function check(el, isCorrect) {
+            document.querySelectorAll('.btn').forEach(b => b.disabled = true);
+            if(isCorrect) {
+                el.classList.add('correct');
+                document.getElementById('win').style.display = 'block';
+            } else {
+                el.classList.add('wrong');
+                document.getElementById('lose').style.display = 'block';
+            }
+        }
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.keyCode===67 || e.keyCode===85 || e.keyCode===83 || e.keyCode===65) || e.keyCode===123) e.preventDefault();
+        });
+    </script>
+</body>
+</html>
